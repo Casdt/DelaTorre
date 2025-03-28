@@ -98,7 +98,7 @@
 </head>
 <body onload="getData();">
 
-    <h1 style="font-size: 50px;">ABC Colleges</h1>
+    <h1 style="font-size: 50px;">ABC</h1>
     <h2 style="font-size: 30px;">BSIT - Section 3B-G2 (2025-2026)</h2>
 
     <div id="userData"></div>
