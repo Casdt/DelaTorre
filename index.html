@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Users</title>
+    <style>
+        /* General Styling */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1, h2 {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .user-card {
+            border: 3px solid black;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .user-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .user-card img {
+            width: 100%;
+            max-width: 100px;
+            height: auto;
+            object-fit: cover;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 5px;
+            border: 3px solid black;
+        }
+
+        .user-info {
+            padding-right: 120px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr; 
+            }
+
+            .user-card {
+                width: 90%;
+                margin: auto;
+            }
+
+            .user-card img {
+                max-width: 80px;
+                top: 5px;
+                right: 5px;
+            }
+
+            .user-info {
+                padding-right: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .user-card img {
+                position: static;
+                display: block;
+                margin: 0 auto 10px;
+            }
+
+            .user-info {
+                padding-right: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body onload="loadData()">
+
+    <h1 style="font-size: 50px;">Library Users</h1>
+    <h2 style="font-size: 30px;">BSIT - Section 3B-G2 (2025-2026)</h2>
+
+    <div id="userData"></div>
+
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('cedricamiel_delatorres.xml');
+                const xml = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xml, "text/xml");
+                const users = xmlDoc.getElementsByTagName("user");
+
+                let output = "<div class='grid-container'>";
+
+                for (let user of users) {
+                    const name = user.getElementsByTagName("name")[0].textContent;
+                    const course = user.getElementsByTagName("course")[0].textContent;
+                    const picture = user.getElementsByTagName("picture")[0].textContent;
+
+                    output += `
+                        <div class="user-card">
+                            <img src="${picture}" alt="${name}">
+                            <div class="user-info">
+                                <b>Name:</b> ${name}<br>
+                                <b>Course:</b> ${course}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                output += "</div>";
+                document.getElementById("userData").innerHTML = output;
+
+            } catch (error) {
+                console.error("Failed to load XML data", error);
+            }
+        }
+    </script>
+</body>
+</html>

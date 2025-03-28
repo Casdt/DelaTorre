@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Users</title>
+    <style>
+        /* General Styling */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1, h2 {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Responsive Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin: auto;
+        }
+
+        .user-card {
+            border: 3px solid black;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
+            font-size: 12px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .user-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .user-card img {
+            width: 100%;
+            max-width: 100px;
+            height: auto;
+            object-fit: cover;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+
+        .user-info {
+            padding-right: 120px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* One column for smaller screens */
+            }
+
+            .user-card {
+                width: 90%;
+                margin: auto;
+            }
+
+            .user-card img {
+                max-width: 80px;
+                top: 5px;
+                right: 5px;
+            }
+
+            .user-info {
+                padding-right: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .user-card img {
+                position: static;
+                display: block;
+                margin: 0 auto 10px;
+            }
+
+            .user-info {
+                padding-right: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body onload="getData();">
+
+    <h1 style="font-size: 50px;">ABC Colleges</h1>
+    <h2 style="font-size: 30px;">BSIT - Section 3B-G2 (2025-2026)</h2>
+
+    <div id="userData"></div>
+
+    <!-- XML Data -->
+    <xml id="xmldata" style="display: none;">
+        <users>
+            <user>
+                <name>LeBron James</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png</picture>
+            </user>
+            <user>
+                <name>Stephen Curry</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png</picture>
+            </user>
+            <user>
+                <name>Giannis Antetokounmpo</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/203507.png</picture>
+            </user>
+            <user>
+                <name>Kevin Durant</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/201142.png</picture>
+            </user>
+            <user>
+                <name>Jayson Tatum</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/1628369.png</picture>
+            </user>
+            <user>
+                <name>Joel Embiid</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/203954.png</picture>
+            </user>
+            <user>
+                <name>Luka Dončić</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/1629029.png</picture>
+            </user>
+            <user>
+                <name>Devin Booker</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/1626164.png</picture>
+            </user>
+            <user>
+                <name>Jimmy Butler</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/202710.png</picture>
+            </user>
+            <user>
+                <name>Ja Morant</name>
+                <course>BSIT</course>
+                <year_level_section>3B-G2</year_level_section>
+                <adviser>Noemi Reyes</adviser>
+                <school_year>2025-2026</school_year>
+                <picture>https://cdn.nba.com/headshots/nba/latest/1040x760/1629630.png</picture>
+            </user>
+        </users>
+    </xml>
+
+    <script>
+        function getData() {
+            const xml = document.getElementById("xmldata");
+            const users = xml.getElementsByTagName("user");
+
+            let output = "<div class='grid-container'>";
+
+            for (let i = 0; i < users.length; i++) {
+                const user = users[i].children;
+
+                const name = user[0].textContent;
+                const course = user[1].textContent;
+                const section = user[2].textContent;
+                const adviser = user[3].textContent;
+                const year = user[4].textContent;
+                const picture = user[5].textContent;
+
+                output += `
+                    <div class='user-card'>
+                        <img src="${picture}" alt="${name}">
+                        <div class="user-info">
+                            <b>Name:</b> ${name} <br>
+                            <b>Course:</b> ${course} <br>
+                            <b>Section:</b> ${section} <br>
+                            <b>Adviser:</b> ${adviser} <br>
+                            <b>School Year:</b> ${year}
+                        </div>
+                    </div>
+                `;
+            }
+
+            output += "</div>";
+            document.getElementById("userData").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
